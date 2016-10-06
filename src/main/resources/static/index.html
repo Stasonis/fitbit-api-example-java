@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Demo</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width" />
+<base href="/" />
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="home as home">
+	<h1>Login</h1>
+	<div class="container" ng-show="!home.authenticated">
+		With Fitbit: <a href="/login">click here</a>
+	</div>
+	<div class="container" ng-show="home.authenticated">
+		Logged in as: <span ng-bind="home.user"></span><br />
+		Lifetime Steps: <span ng-bind="home.lifetimeSteps"></span><br />
+		Lifetime Distance: <span ng-bind="home.lifetimeDistance"></span><br />
+		Lifetime Floors: <span ng-bind="home.lifetimeFloors"></span><br />
+	</div>
+	<script type="text/javascript" src="/webjars/angularjs/angular.min.js"></script>
+	<script type="text/javascript">
+		angular.module("app", []).controller("home", function($http) {
+			var self = this;
+
+			$http.get("/user").success(function(data) {
+				self.user = data.userAuthentication.details.user.fullName;
+				self.authenticated = true;
+			}).error(function() {
+				self.user = "N/A";
+				self.authenticated = false;
+			});
+
+			$http.get("/lifetime-activity").success(function(data) {
+				self.lifetimeSteps = data.steps.toLocaleString();
+				self.lifetimeFloors = data.floors.toLocaleString();
+				self.lifetimeDistance = data.distance.toLocaleString();
+			}).error(function() {
+				self.lifetimeSteps = "N/A";
+			});
+		});
+	</script>
+</body>
+</html>

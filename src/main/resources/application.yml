@@ -1,0 +1,21 @@
+security:
+  oauth2:
+    client:
+      clientId: YOUR_CLIENT_ID_HERE
+      clientSecret: YOUR_CLIENT_SECRET_HERE
+      accessTokenUri: https://api.fitbit.com/oauth2/token
+      userAuthorizationUri: https://www.fitbit.com/oauth2/authorize
+      tokenName: oauth_token
+      authenticationScheme: header
+      clientAuthenticationScheme: header
+      scope: "activity heartrate location nutrition profile settings sleep social weight"
+    resource:
+      userInfoUri: https://api.fitbit.com/1/user/-/profile.json
+fitbit:
+  api:
+    resource:
+      activitiesUri: https://api.fitbit.com/1/user/-/activities.json
+
+logging:
+  level:
+    org.springframework.security: TRACE
