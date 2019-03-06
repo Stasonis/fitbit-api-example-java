@@ -59,3 +59,5 @@ mvn spring-boot:run
 After a moment your app should be started and you can go to [http://localhost:8080](http://localhost:8080) and follow the login flow.
 
 The app as written will only access your fitbit profile to demonstrate OAuth working.
+
+w
